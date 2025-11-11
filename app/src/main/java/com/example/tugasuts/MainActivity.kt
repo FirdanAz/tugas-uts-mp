@@ -3,6 +3,7 @@ package com.example.tugasuts
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,38 +23,34 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // Ambil semua inputan
+        // Ambil input
         val editUsername = findViewById<EditText>(R.id.editUsername)
         val editEmail = findViewById<EditText>(R.id.editEmail)
         val editFirstName = findViewById<EditText>(R.id.editFirstName)
         val editLastName = findViewById<EditText>(R.id.editLastName)
         val editPassword = findViewById<EditText>(R.id.editPassword)
         val btnSubmit = findViewById<Button>(R.id.btnSubmit)
-        val btnCancel = findViewById<Button>(R.id.btnCancel)
+        val btnCancel = findViewById<TextView>(R.id.btnCancel)
 
-        // Tombol Kirim
+        // Data akun login (bisa kamu ganti)
+        val validUsername = "firdan"
+        val validPassword = "12345"
+
+        // Tombol Login (Kirim)
         btnSubmit.setOnClickListener {
             val username = editUsername.text.toString().trim()
-            val email = editEmail.text.toString().trim()
-            val firstName = editFirstName.text.toString().trim()
-            val lastName = editLastName.text.toString().trim()
             val password = editPassword.text.toString().trim()
 
-            if (username.isEmpty() || email.isEmpty() || firstName.isEmpty() ||
-                lastName.isEmpty() || password.isEmpty()
-            ) {
-                Toast.makeText(this, "Semua kolom harus diisi!", Toast.LENGTH_LONG).show()
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(this, "Username dan Password wajib diisi!", Toast.LENGTH_SHORT).show()
+            } else if (username == validUsername && password == validPassword) {
+                Toast.makeText(this, "Login Berhasil! Selamat datang, $username", Toast.LENGTH_LONG).show()
             } else {
-                val fullName = "$firstName $lastName"
-                Toast.makeText(
-                    this,
-                    "Pendaftaran berhasil!\nNama: $fullName",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this, "Username atau Password salah!", Toast.LENGTH_LONG).show()
             }
         }
 
-        // Tombol Batal
+        // Tombol Batal (reset semua)
         btnCancel.setOnClickListener {
             editUsername.text.clear()
             editEmail.text.clear()
